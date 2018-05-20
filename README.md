@@ -1,0 +1,2 @@
+# ClassControl
+O projeto proposto é um gerenciador de notas e faltas para uma instituição de ensino, com ele é possível manter perfis de professores, alunos, notas, faltas, todas as respectivas informações pessoais incluindo fotos dos usuários, e avisos para as disciplinas relacionadas. Este aplicativo facilita a integração e disseminação de informação de forma prática a qualquer hora e lugar através de uma conexão com a internet em seu dispositivo móvel.
