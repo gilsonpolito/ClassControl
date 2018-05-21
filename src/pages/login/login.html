@@ -6,7 +6,6 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-item>
     <ion-label floating>Usuário</ion-label>
@@ -17,11 +16,10 @@
     <ion-label floating>Senha</ion-label>
     <ion-input type="password"></ion-input>
   </ion-item>
-  <button ion-button color="dark">Logar como Aluno</button>
-
-  <ion-label stacked>Ou</ion-label>
-
-  <button ion-button color="dark">Logar como Professor</button><br/>
-
-  <button ion-button color="dark">Logar como Instituição</button>
+  <div style="text-align:center">
+    <button ion-button color="dark" full (click)=loginAluno()>Logar como Aluno</button>
+    <ion-label stacked>Ou</ion-label>
+    <button ion-button color="dark" full (click)=loginProfessor()>Logar como Professor</button><br/>
+    <button ion-button color="dark" full (click)=loginInstituicao()>Logar como Instituição</button>
+  </div>
 </ion-content>

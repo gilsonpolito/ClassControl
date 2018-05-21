@@ -22,4 +22,23 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  private login():void{
+    console.log("Fazer a lógica de login")
+  }
+
+  public loginAluno():void{
+    this.login();
+    console.log("Login aluno");
+  }
+
+  public loginProfessor():void{
+    this.login();
+    console.log("Login professor");
+  }
+
+  public loginInstituicao():void{
+    this.login();
+    console.log("Login instituição");
+  }
+
 }
