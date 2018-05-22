@@ -16,6 +16,8 @@ import { LoginProvider } from '../providers/login/login';
 import { InstituicaoProvider } from '../providers/instituicao/instituicao';
 import { DisciplinaProvider } from '../providers/disciplina/disciplina';
 import { ProfessorProvider } from '../providers/professor/professor';
+import { AlunoProvider } from '../providers/aluno/aluno';
+import { TurmaProvider } from '../providers/turma/turma';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ProfessorProvider } from '../providers/professor/professor';
     LoginProvider,
     InstituicaoProvider,
     DisciplinaProvider,
-    ProfessorProvider
+    ProfessorProvider,
+    AlunoProvider,
+    TurmaProvider
   ]
 })
 export class AppModule {}
