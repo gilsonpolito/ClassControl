@@ -35,7 +35,7 @@ export class InstituicaoProvider {
     .catch((e) => console.error('Erro ao atualizar instituicao', e));
   }
 
-  public get(email:string, password:string){
+  public get(email:string){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
       let sql = 'SELECT email, nome, foto FROM instituicao WHERE  email=?';
