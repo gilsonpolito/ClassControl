@@ -17,9 +17,9 @@
     <ion-input type="password"></ion-input>
   </ion-item>
   <div style="text-align:center">
-    <button ion-button color="dark" full (click)=loginAluno()>Logar como Aluno</button>
+    <button ion-button color="dark" full (click)="login(loginAluno)">Logar como Aluno</button>
     <ion-label stacked>Ou</ion-label>
-    <button ion-button color="dark" full (click)=loginProfessor()>Logar como Professor</button><br/>
-    <button ion-button color="dark" full (click)=loginInstituicao()>Logar como Instituição</button>
+    <button ion-button color="dark" full (click)="login(loginProfessor)">Logar como Professor</button><br/>
+    <button ion-button color="dark" full (click)="login(loginInstituicao)">Logar como Instituição</button>
   </div>
 </ion-content>

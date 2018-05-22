@@ -7,13 +7,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+ enum Logins{
+   ALUNO,
+   PROFESSOR,
+   INSTITUICAO,
+ }
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
+
 export class LoginPage {
+
+  public loginAluno:Logins = Logins.ALUNO;
+  public loginProfessor:Logins = Logins.PROFESSOR;
+  public loginInstituicao:Logins = Logins.INSTITUICAO;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -22,23 +32,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  private login():void{
-    console.log("Fazer a lógica de login")
+  public login(login:Logins):void{
+    console.log("Fazer a lógica de login para " +  login)
   }
-
-  public loginAluno():void{
-    this.login();
-    console.log("Login aluno");
-  }
-
-  public loginProfessor():void{
-    this.login();
-    console.log("Login professor");
-  }
-
-  public loginInstituicao():void{
-    this.login();
-    console.log("Login instituição");
-  }
-
 }
