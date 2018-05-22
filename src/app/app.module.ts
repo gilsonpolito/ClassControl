@@ -15,6 +15,7 @@ import { SQLite } from '@ionic-native/sqlite'
 import { LoginProvider } from '../providers/login/login';
 import { InstituicaoProvider } from '../providers/instituicao/instituicao';
 import { DisciplinaProvider } from '../providers/disciplina/disciplina';
+import { ProfessorProvider } from '../providers/professor/professor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DisciplinaProvider } from '../providers/disciplina/disciplina';
     DatabaseProvider,
     LoginProvider,
     InstituicaoProvider,
-    DisciplinaProvider
+    DisciplinaProvider,
+    ProfessorProvider
   ]
 })
 export class AppModule {}
