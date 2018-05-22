@@ -36,7 +36,7 @@ export class DatabaseProvider {
     console.log('createTables');
     db.sqlBatch([
       ['CREATE TABLE IF NOT EXISTS login(email TEXT PRIMARY KEY, password TEXT, perfil TEXT)'],
-      ['CREATE TABLE IF NOT EXISTS instituicao(id INTEGER PRIMARY KEY, nome TEXT, foto TEXT, login_email TEXT, FOREIGN KEY(login_email) REFERENCES login(email))']
+      ['CREATE TABLE IF NOT EXISTS instituicao(login_email TEXT PRIMARY KEY, nome TEXT, foto TEXT, FOREIGN KEY(login_email) REFERENCES login(email))']
     ])
     .then(() => console.log('Tabelas criadas'))
     .catch(e => console.error('Erro ao criar as tabelas', e));
