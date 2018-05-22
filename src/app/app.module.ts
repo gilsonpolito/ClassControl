@@ -11,6 +11,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DatabaseProvider } from '../providers/database/database';
 
+import { SQLite } from '@ionic-native/sqlite'
+
 @NgModule({
   declarations: [
     MyApp,
@@ -33,6 +35,7 @@ import { DatabaseProvider } from '../providers/database/database';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SQLite,
     DatabaseProvider
   ]
 })
