@@ -15,13 +15,32 @@ export class TurmaProvider {
 
   constructor(private dbProvider: DatabaseProvider) {
   }
-  /*public insert(turma: Turma){
+
+  public insert(turma: Turma){
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
-      let sql = 'INSERT INTO turma(nome, dataNascimento) VALUES(?,?)';
-      let data = [turma.nome,turma.dataNascimento];
-      return db.executeSql(sql,data)
-      .catch((e) => console.error('Erro ao executar insert turma',e));
+      let sql = 'INSERT INTO turma(disciplina_id, professor_id) VALUES(?,?)';
+      let data = [turma.disciplina.id,turma.professor.id];
+      db.transaction(tx => {
+        tx.start();
+        tx.executeSql(sql,data,()=>{
+          sql = "select last_insert_rowid()";
+          let idGerado;
+          tx.executeSql(sql,[]), (d) =>{
+            idGerado = d.rows.item(0).value;
+            sql = 'INSERT INTO vinculo(turma_id, aluno_id) VALUES(?,?)';
+
+            for (let i = 0; i < turma.alunos.length; i++) {
+              data = [idGerado,turma.alunos[i].id];
+              tx.executeSql(sql,data);
+            }
+          }, (e) =>{
+            console.error('Erro ao recuperar o idGerado para a turma ', e);
+          }
+        },(e)=>{
+          console.error('Erro ao executar insert turma',e)
+        });
+      });
     })
     .catch((e) => console.error('Erro ao inserir turma', e));
   }
@@ -29,15 +48,27 @@ export class TurmaProvider {
   public update(turma:Turma){
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
-      let sql = 'UPDATE turma SET nome = ?, dataNascimento = ? WHERE id = ?';
-      let data = [turma.nome,turma.dataNascimento, turma.id];
-      return db.executeSql(sql,data)
-      .catch((e) => console.error('Erro ao executar update turma',e));
+      let sql = 'UPDATE turma SET disciplina_id = ?, professor_id = ? WHERE id = ?';
+      let data = [turma.disciplina.id,turma.professor.id, turma.id];
+      db.transaction(tx => {
+        tx.executeSql(sql,data,()=>{
+          sql = 'DELETE FROM vinculo WHERE turma_id = ?';
+          data = [turma.id];
+          tx.executeSql(sql,data);
+          sql = 'INSERT INTO vinculo(turma_id, aluno_id) VALUES(?,?)';
+          for (let i = 0; i < turma.alunos.length; i++) {
+            data = [turma.id,turma.alunos[i].id];
+            tx.executeSql(sql,data);
+          }
+        },(e)=>{
+          console.error('Erro ao executar atualização dos vinculos',e)
+        });
+      });
     })
     .catch((e) => console.error('Erro ao atualizar turma', e));
   }
 
-  public get(id:number){
+  /*public get(id:number){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
       let sql = 'SELECT id, nome, dataNascimento FROM turma WHERE  id=?';
@@ -62,8 +93,8 @@ export class TurmaProvider {
   }
 
   export class Turma{
-  id:number;
-  disciplina:Disciplina;
-  professor:Professor;
-  alunos:[Aluno];
+    id:number;
+    disciplina:Disciplina;
+    professor:Professor;
+    alunos:[Aluno];
   }

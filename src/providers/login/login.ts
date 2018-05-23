@@ -11,6 +11,8 @@ import { DatabaseProvider } from '../database/database';
 @Injectable()
 export class LoginProvider {
 
+  public perfil: number = 0;
+
   constructor(private dbProvider: DatabaseProvider) {
 
   }

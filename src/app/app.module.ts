@@ -3,9 +3,13 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ListaalunosPage } from '../pages/listaalunos/listaalunos';
+import { ListadisciplinasPage } from '../pages/listadisciplinas/listadisciplinas';
+import { ListaprofessoresPage } from '../pages/listaprofessores/listaprofessores';
+import { ListaturmasPage } from '../pages/listaturmas/listaturmas';
 import { LoginPage } from '../pages/login/login';
+import { ManternotasfaltasPage } from '../pages/manternotasfaltas/manternotasfaltas';
+import { VisualizarnotasfaltasPage } from '../pages/visualizarnotasfaltas/visualizarnotasfaltas';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,9 +26,13 @@ import { TurmaProvider } from '../providers/turma/turma';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ListPage,
-    LoginPage
+    ListaalunosPage,
+    ListadisciplinasPage,
+    ListaprofessoresPage,
+    ListaturmasPage,
+    LoginPage,
+    ManternotasfaltasPage,
+    VisualizarnotasfaltasPage
   ],
   imports: [
     BrowserModule,
@@ -33,9 +41,13 @@ import { TurmaProvider } from '../providers/turma/turma';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage,
-    LoginPage
+    ListaalunosPage,
+    ListadisciplinasPage,
+    ListaprofessoresPage,
+    ListaturmasPage,
+    LoginPage,
+    ManternotasfaltasPage,
+    VisualizarnotasfaltasPage
   ],
   providers: [
     StatusBar,

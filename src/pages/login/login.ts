@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { IonicPage, NavController , Events} from 'ionic-angular';
+import { LoginProvider } from '../../providers/login/login';
+import { VisualizarnotasfaltasPage } from '../visualizarnotasfaltas/visualizarnotasfaltas'
 
 /**
  * Generated class for the LoginPage page.
@@ -26,7 +27,7 @@ export class LoginPage {
   public loginProfessor:Logins = Logins.PROFESSOR;
   public loginInstituicao:Logins = Logins.INSTITUICAO;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public perfil: LoginProvider, public events:Events) {
   }
 
   ionViewDidLoad() {
@@ -36,16 +37,7 @@ export class LoginPage {
   public login(login:Logins):void{
     console.log("Fazer a lógica de login para " +  login);
     //direcionar para a home e inserir parametro de perfil
-    switch(login){
-      case Logins.ALUNO:
-        this.navCtrl.push(HomePage);
-        break;
-      case Logins.PROFESSOR:
-        this.navCtrl.push(HomePage);
-        break;
-      case Logins.INSTITUICAO:
-        this.navCtrl.push(HomePage);
-        break;
-    }
+    this.events.publish('user:login', login);
+    this.navCtrl.setRoot(VisualizarnotasfaltasPage);
   }
 }
