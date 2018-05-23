@@ -20,7 +20,7 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, dbProvider: DatabaseProvider) {
-    
+
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
@@ -43,5 +43,9 @@ export class MyApp {
   private openHomePage(splashScreen: SplashScreen){
     splashScreen.hide();
     this.rootPage = LoginPage
+  }
+
+  openPage(page) {
+    this.nav.setRoot(page.component);
   }
 }

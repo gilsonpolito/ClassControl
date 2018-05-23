@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -33,6 +34,18 @@ export class LoginPage {
   }
 
   public login(login:Logins):void{
-    console.log("Fazer a lógica de login para " +  login)
+    console.log("Fazer a lógica de login para " +  login);
+    //direcionar para a home e inserir parametro de perfil
+    switch(login){
+      case Logins.ALUNO:
+        this.navCtrl.push(HomePage);
+        break;
+      case Logins.PROFESSOR:
+        this.navCtrl.push(HomePage);
+        break;
+      case Logins.INSTITUICAO:
+        this.navCtrl.push(HomePage);
+        break;
+    }
   }
 }
