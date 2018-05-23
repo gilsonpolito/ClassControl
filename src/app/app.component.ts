@@ -48,14 +48,12 @@ export class MyApp {
     switch(perfil){
       case 0:
         this.pages = [
-            { title: 'Visualizar Notas e Faltas', component: VisualizarnotasfaltasPage },
-            {title: 'Logout', component: LoginPage }
+            { title: 'Visualizar Notas e Faltas', component: VisualizarnotasfaltasPage }
           ];
         break;
       case 1:
         this.pages = [
-            { title: 'Manter Notas e Faltas', component: ManternotasfaltasPage },
-            {title: 'Logout', component: LoginPage }
+            { title: 'Manter Notas e Faltas', component: ManternotasfaltasPage }
           ];
         break;
       case 2:
@@ -63,11 +61,11 @@ export class MyApp {
             {title: 'Listar Alunos', component: ListaalunosPage },
             {title: 'Listar Professores', component: ListaprofessoresPage },
             {title: 'Listar Disciplinas', component: ListadisciplinasPage },
-            {title: 'Listar Turmas', component: ListaturmasPage },
-            {title: 'Logout', component: LoginPage }
+            {title: 'Listar Turmas', component: ListaturmasPage }
           ];
         break;
     }
+    this.pages.push({title: 'Logout', component: LoginPage });
   }
 
   private openHomePage(splashScreen: SplashScreen){
