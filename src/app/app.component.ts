@@ -47,17 +47,24 @@ export class MyApp {
 
     switch(perfil){
       case 0:
-        this.pages = [{ title: 'Visualizar Notas e Faltas', component: VisualizarnotasfaltasPage }];
+        this.pages = [
+            { title: 'Visualizar Notas e Faltas', component: VisualizarnotasfaltasPage },
+            {title: 'Logout', component: LoginPage }
+          ];
         break;
       case 1:
-        this.pages = [{ title: 'Manter Notas e Faltas', component: ManternotasfaltasPage }];
+        this.pages = [
+            { title: 'Manter Notas e Faltas', component: ManternotasfaltasPage },
+            {title: 'Logout', component: LoginPage }
+          ];
         break;
       case 2:
         this.pages = [
-            { title: 'Listar Alunos', component: ListaalunosPage },
-            {title: 'Listar Professores', component: ListaprofessoresPage},
-            {title: 'Listar Disciplinas', component: ListadisciplinasPage},
-            {title: 'Listar Turmas', component: ListaturmasPage}
+            {title: 'Listar Alunos', component: ListaalunosPage },
+            {title: 'Listar Professores', component: ListaprofessoresPage },
+            {title: 'Listar Disciplinas', component: ListadisciplinasPage },
+            {title: 'Listar Turmas', component: ListaturmasPage },
+            {title: 'Logout', component: LoginPage }
           ];
         break;
     }
