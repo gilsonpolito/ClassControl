@@ -1,17 +1,27 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
+    <ion-toolbar color="dark">
+        <ion-item class="item-avatar" color="dark">
+          <img src="assets/icon/favicon.ico" alt="Aqui vai a imagem" />
+          <span style="color:White">Nome do usuário</span>
+        </ion-item>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content style="background-color:black">
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button color="dark" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>
   </ion-content>
+  <ion-footer>
+    <ion-list>
+      <button color="dark" menuClose ion-item (click)="openPage(pageLogout)">
+        {{pageLogout.title}}
+      </button>
+    </ion-list>
+  </ion-footer>
 
 </ion-menu>
 

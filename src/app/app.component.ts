@@ -19,9 +19,11 @@ import { DatabaseProvider } from '../providers/database/database';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = null;//LoginPage;//HomePage;
+  rootPage: any = null;
 
   pages: Array<{title: string, component: any}>;
+
+  pageLogout: {title: string, component: any} = {title:'Logout', component: LoginPage};
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, dbProvider: DatabaseProvider, public events:Events) {
 
@@ -65,7 +67,6 @@ export class MyApp {
           ];
         break;
     }
-    this.pages.push({title: 'Logout', component: LoginPage });
   }
 
   private openHomePage(splashScreen: SplashScreen){
