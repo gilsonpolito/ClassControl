@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { EnumLogin } from '../../app/app.component';
 
-/*
-  Generated class for the DatabaseProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DatabaseProvider {
 
@@ -14,7 +9,6 @@ export class DatabaseProvider {
   }
 
   public getDB(){
-    console.log('getDB');
     return this.sqlite.create({
       name: 'classcontrol.db',
       location: 'default'
@@ -22,12 +16,9 @@ export class DatabaseProvider {
   }
 
   public createDatabase(){
-    console.log('createDatabase');
     return this.getDB()
     .then((db: SQLiteObject) => {
-      console.log('apos recuperar banco');
       this.createTables(db);
-      this.insertDafault(db);
     })
     .catch(e => console.log('Erro no getDB', e));
   }
@@ -35,32 +26,36 @@ export class DatabaseProvider {
   private createTables(db: SQLiteObject){
     console.log('createTables');
     db.sqlBatch([
-      ['CREATE TABLE IF NOT EXISTS login(email TEXT PRIMARY KEY, password TEXT, perfil TEXT)'],
+      ['DROP TABLE IF EXISTS vinculo'],
+      ['DROP TABLE IF EXISTS turma'],
+      ['DROP TABLE IF EXISTS aluno'],
+      ['DROP TABLE IF EXISTS professor'],
+      ['DROP TABLE IF EXISTS disciplina'],
+      ['DROP TABLE IF EXISTS instituicao'],
+      ['DROP TABLE IF EXISTS login'],
+      ['CREATE TABLE IF NOT EXISTS login(email TEXT PRIMARY KEY, password TEXT, perfil INTEGER)'],
       ['CREATE TABLE IF NOT EXISTS instituicao(login_email TEXT PRIMARY KEY, nome TEXT, foto TEXT, FOREIGN KEY(login_email) REFERENCES login(email))'],
       ['CREATE TABLE IF NOT EXISTS disciplina(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT NOT NULL, cargaHoraria INTEGER NOT NULL)'],
-      ['CREATE TABLE IF NOT EXISTS professor(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT NOT NULL, dataAdmissao NUMERIC NOT NULL)'],
-      ['CREATE TABLE IF NOT EXISTS aluno(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT NOT NULL, dataNascimento NUMERIC NOT NULL)'],
+      ['CREATE TABLE IF NOT EXISTS professor(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataAdmissao NUMERIC NOT NULL, FOREIGN KEY(login_email) REFERENCES login(email))'],
+      ['CREATE TABLE IF NOT EXISTS aluno(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataNascimento NUMERIC NOT NULL, FOREIGN KEY(login_email) REFERENCES login(email))'],
       ['CREATE TABLE IF NOT EXISTS turma(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, disciplina_id INTEGER NOT NULL, professor_id INTEGER NOT NULL, FOREIGN KEY(disciplina_id) REFERENCES disciplina(id), FOREIGN KEY(professor_id)  REFERENCES professor(id))'],
-      ['CREATE TABLE IF NOT EXISTS vinculo(turma_id INTEGER NOT NULL, aluno_id INTEGER NOT NULL PRIMARY KEY(turma_id, aluno_id))']
+      ['CREATE TABLE IF NOT EXISTS vinculo(turma_id INTEGER NOT NULL, aluno_id INTEGER NOT NULL, PRIMARY KEY(turma_id, aluno_id))']
     ])
-    .then(() => console.log('Tabelas criadas'))
+    .then(() => {console.log('Tabelas criadas'); this.insertDefault(db);})
     .catch(e => console.error('Erro ao criar as tabelas', e));
   }
 
-  private insertDafault(db: SQLiteObject){
-    console.log('insertDafault');
+  private insertDefault(db: SQLiteObject){
     db.executeSql('SELECT COUNT(email) as qtd FROM login',{})
     .then((data: any) =>{
-      console.log('apos select');
       if(data.rows.item(0).qtd == 0){
         db.sqlBatch([
-          ['INSERT INTO login(email, password, perfil) VALUES(?,?,?)', ['admin@admin.com','admin','I']],
-          ['INSERT INTO instituicao(id, nome, login_email) VALUES(?,?,?,?)', [1,'Instituição teste', 'admin@admin.com']]
+          ['INSERT INTO login(email, password, perfil) VALUES(?,?,?)', ['ifsp@ifsp.com','ifsp',EnumLogin.INSTITUICAO]],
+          ['INSERT INTO instituicao(nome, login_email) VALUES(?,?)', ['Instituição teste com bd', 'ifsp@ifsp.com']]
         ])
-        .then(() => console.log('Administrador e instituicao incluído com sucesso'))
         .catch(e => console.error('Erro ao incluir Administrador e instituicao', e));
       } else{
-        console.log('entrou no else');
+        console.log('A base já possui informações!!!');
       }
     })
     .catch(e => console.error('Erro ao consultar a qtd de logins', e));

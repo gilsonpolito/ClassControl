@@ -12,6 +12,16 @@ import { ManternotasfaltasPage } from '../pages/manternotasfaltas/manternotasfal
 import { VisualizarnotasfaltasPage } from '../pages/visualizarnotasfaltas/visualizarnotasfaltas';
 
 import { DatabaseProvider } from '../providers/database/database';
+import { Login } from '../providers/login/login';
+import { AlunoProvider, Aluno } from '../providers/aluno/aluno';
+import { ProfessorProvider, Professor } from '../providers/professor/professor';
+import { InstituicaoProvider, Instituicao } from '../providers/instituicao/instituicao';
+
+export enum EnumLogin{
+  ALUNO = 0,
+  PROFESSOR = 1,
+  INSTITUICAO = 2,
+}
 
 @Component({
   templateUrl: 'app.html'
@@ -25,56 +35,86 @@ export class MyApp {
 
   pageLogout: {title: string, component: any} = {title:'Logout', component: LoginPage};
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, dbProvider: DatabaseProvider, public events:Events) {
+  usuarioLogado: any = null;
 
-    events.subscribe('user:login', (perfil) =>{
-      this.criarMenu(perfil);
-    })
+  constructor(public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public databaseProvider: DatabaseProvider,
+    private alunoProvider: AlunoProvider,
+    private professorProvider: ProfessorProvider,
+    private instituicaoProvider: InstituicaoProvider,
+    public events:Events) {
 
-    platform.ready().then(() =>{
-      console.log('iniciou');
-      statusBar.styleDefault();
-      dbProvider.createDatabase()
-      .then(() => {
-        this.openHomePage(splashScreen);
+      events.subscribe('user:login', (usuario: Login) =>{
+        this.criarMenu(usuario);
       })
-      .catch(() => {
-        this.openHomePage(splashScreen);
+
+      platform.ready().then(() =>{
+        statusBar.styleDefault();
+        databaseProvider.createDatabase()
+        .then(() => {
+          this.openHomePage(splashScreen);
+        })
+        .catch(() => {
+          this.openHomePage(splashScreen);
+        });
       });
-    });
-  }
+    }
 
-  private criarMenu(perfil){
-    console.log("Passei aqui ", perfil);
+    private criarMenu(perfil:Login){
+      switch(perfil.perfil){
+        case EnumLogin.ALUNO:
+        this.pages = [
+          { title: 'Visualizar Notas e Faltas', component: VisualizarnotasfaltasPage }
+        ];
+        this.alunoProvider.get(perfil.email)
+        .then((result : any) => {
+          if (result instanceof Aluno){
+            this.usuarioLogado = <Aluno>result;
+            this.nav.setRoot(VisualizarnotasfaltasPage);
+          }
+        })
+        .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
+        break;
+        case EnumLogin.PROFESSOR:
+        this.pages = [
+          { title: 'Manter Notas e Faltas', component: ManternotasfaltasPage }
+        ];
+        this.professorProvider.get(perfil.email)
+        .then((result : any) => {
+          if (result instanceof Professor){
+            this.usuarioLogado = <Professor>result;
+            this.nav.setRoot(ManternotasfaltasPage);
+          }
+        })
+        .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
+        break;
+        case EnumLogin.INSTITUICAO:
+        this.pages = [
+          {title: 'Listar Alunos', component: ListaalunosPage },
+          {title: 'Listar Professores', component: ListaprofessoresPage },
+          {title: 'Listar Disciplinas', component: ListadisciplinasPage },
+          {title: 'Listar Turmas', component: ListaturmasPage }
+        ];
+        this.instituicaoProvider.get(perfil.email)
+        .then((result : any) => {
+          if (result instanceof Instituicao){
+            this.usuarioLogado = <Instituicao>result;
+            this.nav.setRoot(ListaturmasPage);
+          }
+        })
+        .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
+        break;
+      }
+    }
 
-    switch(perfil){
-      case 0:
-        this.pages = [
-            { title: 'Visualizar Notas e Faltas', component: VisualizarnotasfaltasPage }
-          ];
-        break;
-      case 1:
-        this.pages = [
-            { title: 'Manter Notas e Faltas', component: ManternotasfaltasPage }
-          ];
-        break;
-      case 2:
-        this.pages = [
-            {title: 'Listar Alunos', component: ListaalunosPage },
-            {title: 'Listar Professores', component: ListaprofessoresPage },
-            {title: 'Listar Disciplinas', component: ListadisciplinasPage },
-            {title: 'Listar Turmas', component: ListaturmasPage }
-          ];
-        break;
+    private openHomePage(splashScreen: SplashScreen){
+      splashScreen.hide();
+      this.rootPage = LoginPage
+    }
+
+    openPage(page) {
+      this.nav.setRoot(page.component);
     }
   }
-
-  private openHomePage(splashScreen: SplashScreen){
-    splashScreen.hide();
-    this.rootPage = LoginPage
-  }
-
-  openPage(page) {
-    this.nav.setRoot(page.component);
-  }
-}

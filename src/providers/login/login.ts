@@ -1,20 +1,12 @@
 import { Injectable } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { DatabaseProvider } from '../database/database';
+import { EnumLogin } from '../../app/app.component';
 
-/*
-  Generated class for the LoginProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class LoginProvider {
 
-  public perfil: number = 0;
-
   constructor(private dbProvider: DatabaseProvider) {
-
   }
 
   public insert(login: Login){
@@ -39,11 +31,11 @@ export class LoginProvider {
     .catch((e) => console.error('Erro ao atualizar login', e));
   }
 
-  public get(email:string, password:string){
+  public get(log: Login){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
       let sql = 'SELECT email, password, perfil FROM login WHERE  email=? and password=?';
-      let data = [email, password];
+      let data = [log.email, log.password];
       return db.executeSql(sql, data)
       .then((data: any) => {
         if (data.rows.length > 0){
@@ -51,8 +43,7 @@ export class LoginProvider {
           let login = new Login();
           login.email = item.email;
           login.password = item.password;
-          login.perfil = item.perfil;
-
+          login.perfil = <EnumLogin>item.perfil;
           return login;
         }
         return null;
@@ -64,7 +55,8 @@ export class LoginProvider {
 }
 
 export class Login{
+  constructor(){}
   email:string;
   password:string;
-  perfil:string;
+  perfil:EnumLogin;
 }

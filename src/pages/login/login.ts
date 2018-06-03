@@ -1,19 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController , Events} from 'ionic-angular';
-import { LoginProvider } from '../../providers/login/login';
-import { VisualizarnotasfaltasPage } from '../visualizarnotasfaltas/visualizarnotasfaltas'
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
- enum Logins{
-   ALUNO,
-   PROFESSOR,
-   INSTITUICAO,
- }
+import { IonicPage, Events, ToastController} from 'ionic-angular';
+import { LoginProvider, Login } from '../../providers/login/login';
 
 @IonicPage()
 @Component({
@@ -22,22 +9,26 @@ import { VisualizarnotasfaltasPage } from '../visualizarnotasfaltas/visualizarno
 })
 
 export class LoginPage {
+  public usuario: string = "";
+  public senha: string = ""
 
-  public loginAluno:Logins = Logins.ALUNO;
-  public loginProfessor:Logins = Logins.PROFESSOR;
-  public loginInstituicao:Logins = Logins.INSTITUICAO;
-
-  constructor(public navCtrl: NavController, public perfil: LoginProvider, public events:Events) {
+  constructor(private toast: ToastController, private loginProvider: LoginProvider, private events:Events) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-
-  public login(login:Logins):void{
-    console.log("Fazer a lógica de login para " +  login);
-    //direcionar para a home e inserir parametro de perfil
-    this.events.publish('user:login', login);
-    this.navCtrl.setRoot(VisualizarnotasfaltasPage);
+  public login():void{
+    let login = new Login();
+    login.email = this.usuario;
+    login.password = this.senha;
+    this.loginProvider.get(login)
+    .then((result : any) => {
+      if (result instanceof Login){
+        login = <Login>result;
+        this.events.publish('user:login', login);
+      }
+      else{
+        this.toast.create({message: 'Usuário ou senha inválidos!', duration: 3000, position: 'middle' }).present();
+      }
+    })
+    .catch((e) => this.toast.create({message: 'Falha ao realizar login ' + e, duration: 3000, position: 'middle' }).present());
   }
 }

@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { DatabaseProvider } from '../database/database';
 
-/*
-  Generated class for the InstituicaoProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class InstituicaoProvider {
 
@@ -38,14 +32,14 @@ export class InstituicaoProvider {
   public get(email:string){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
-      let sql = 'SELECT email, nome, foto FROM instituicao WHERE  email=?';
+      let sql = 'SELECT login_email, nome, foto FROM instituicao WHERE  login_email=?';
       let data = [email];
       return db.executeSql(sql, data)
       .then((data: any) => {
         if (data.rows.length > 0){
           let item = data.rows.item(0);
           let instituicao = new Instituicao();
-          instituicao.email = item.email;
+          instituicao.email = item.login_email;
           instituicao.nome = item.nome;
           instituicao.foto = item.foto;
 
@@ -57,10 +51,10 @@ export class InstituicaoProvider {
     })
     .catch((e) => console.error('Erro ao pesquisar instituicao', e));
   }
-  }
+}
 
-  export class Instituicao{
+export class Instituicao{
   email:string;
   nome:string;
   foto:string;
-  }
+}

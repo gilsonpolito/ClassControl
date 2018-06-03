@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { DatabaseProvider } from '../database/database';
 
-/*
-  Generated class for the DisciplinaProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DisciplinaProvider {
 
@@ -57,10 +51,10 @@ export class DisciplinaProvider {
     })
     .catch((e) => console.error('Erro ao pesquisar disciplina', e));
   }
-  }
+}
 
-  export class Disciplina{
+export class Disciplina{
   id:number;
   nome:string;
   cargaHoraria:number;
-  }
+}
