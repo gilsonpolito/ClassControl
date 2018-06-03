@@ -38,8 +38,8 @@ export class DatabaseProvider {
       ['CREATE TABLE IF NOT EXISTS disciplina(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT NOT NULL, cargaHoraria INTEGER NOT NULL)'],
       ['CREATE TABLE IF NOT EXISTS professor(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataAdmissao NUMERIC NOT NULL, FOREIGN KEY(login_email) REFERENCES login(email))'],
       ['CREATE TABLE IF NOT EXISTS aluno(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataNascimento NUMERIC NOT NULL, FOREIGN KEY(login_email) REFERENCES login(email))'],
-      ['CREATE TABLE IF NOT EXISTS turma(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, disciplina_id INTEGER NOT NULL, professor_id INTEGER NOT NULL, FOREIGN KEY(disciplina_id) REFERENCES disciplina(id), FOREIGN KEY(professor_id)  REFERENCES professor(id))'],
-      ['CREATE TABLE IF NOT EXISTS vinculo(turma_id INTEGER NOT NULL, aluno_id INTEGER NOT NULL, PRIMARY KEY(turma_id, aluno_id))']
+      ['CREATE TABLE IF NOT EXISTS turma(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, disciplina_id INTEGER NOT NULL, professor_login_email TEXT NOT NULL, FOREIGN KEY(disciplina_id) REFERENCES disciplina(id), FOREIGN KEY(professor_login_email)  REFERENCES professor(login_email))'],
+      ['CREATE TABLE IF NOT EXISTS vinculo(turma_id INTEGER NOT NULL, aluno_login_email TEXT NOT NULL, PRIMARY KEY(turma_id, aluno_login_email))']
     ])
     .then(() => {console.log('Tabelas criadas'); this.insertDefault(db);})
     .catch(e => console.error('Erro ao criar as tabelas', e));
