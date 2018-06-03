@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro de Professor</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Email:</ion-label>
+      <ion-input type="text" name="email" [(ngModel)]="professor.email"></ion-input>
+    </ion-item>
+
+
+      <ion-item>
+        <ion-label stacked>Nome:</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="professor.nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Data Admissão:</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" name="duedate" [(ngModel)]="professor.dataAdmissao"></ion-datetime>
+      </ion-item>
+     </ion-list>
+
+    <button ion-button block (click)="save()">Salvar</button>
+
+</ion-content>

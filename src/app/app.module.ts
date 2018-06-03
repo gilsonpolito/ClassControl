@@ -10,6 +10,7 @@ import { ListaturmasPage } from '../pages/listaturmas/listaturmas';
 import { LoginPage } from '../pages/login/login';
 import { ManternotasfaltasPage } from '../pages/manternotasfaltas/manternotasfaltas';
 import { VisualizarnotasfaltasPage } from '../pages/visualizarnotasfaltas/visualizarnotasfaltas';
+import { EditprofessorPage } from '../pages/editprofessor/editprofessor'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import { TurmaProvider } from '../providers/turma/turma';
     ListaturmasPage,
     LoginPage,
     ManternotasfaltasPage,
-    VisualizarnotasfaltasPage
+    VisualizarnotasfaltasPage,
+    EditprofessorPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { TurmaProvider } from '../providers/turma/turma';
     ListaturmasPage,
     LoginPage,
     ManternotasfaltasPage,
-    VisualizarnotasfaltasPage
+    VisualizarnotasfaltasPage,
+    EditprofessorPage
   ],
   providers: [
     StatusBar,

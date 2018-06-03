@@ -3,9 +3,26 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>listaprofessores</ion-title>
+    <ion-title>Lista de Professores</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let professor of professores">
+      <button ion-item (click)="editProfessor(professor.email)">
+        <div style="float:left">
+          <img [src]="professor.foto" alt="Aqui vai a imagem" />
+        </div>
+        <div style="float:left; padding-top:25px; padding-left:10px;">
+          <h2>{{ professor.nome }}</h2>
+        </div>
+      </button>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="addProfessor()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
 </ion-content>
