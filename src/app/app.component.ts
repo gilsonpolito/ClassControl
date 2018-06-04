@@ -71,6 +71,9 @@ export class MyApp {
         this.alunoProvider.get(perfil.email)
         .then((result : any) => {
           if (result instanceof Aluno){
+            if(result.foto == null){
+              result.foto = 'assets/icon/favicon.ico';
+            }
             this.usuarioLogado = <Aluno>result;
             this.nav.setRoot(VisualizarnotasfaltasPage);
           }
@@ -84,6 +87,9 @@ export class MyApp {
         this.professorProvider.get(perfil.email)
         .then((result : any) => {
           if (result instanceof Professor){
+            if(result.foto == null){
+              result.foto = 'assets/icon/favicon.ico';
+            }
             this.usuarioLogado = <Professor>result;
             this.nav.setRoot(ManternotasfaltasPage);
           }
@@ -100,13 +106,18 @@ export class MyApp {
         this.instituicaoProvider.get(perfil.email)
         .then((result : any) => {
           if (result instanceof Instituicao){
+            if(result.foto == null){
+              result.foto = 'assets/icon/favicon.ico';
+            }
             this.usuarioLogado = <Instituicao>result;
+
             this.nav.setRoot(ListaturmasPage);
           }
         })
         .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
         break;
       }
+
     }
 
     private openHomePage(splashScreen: SplashScreen){

@@ -11,25 +11,21 @@ export class ProfessorProvider {
   public insert(professor: Professor){
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
-      let sql = 'INSERT INTO login(email, password, perfil) VALUES(?,?,?)';
-      let data = [professor.email, professor.email, EnumLogin.PROFESSOR];
-      return db.executeSql(sql,data)
-      .then((db:SQLiteObject) => {
-        let sql = 'INSERT INTO professor(login_email, nome, dataAdmissao, foto) VALUES(?,?,?,?)';
-        let data = [professor.email, professor.nome, professor.dataAdmissao, professor.foto];
-        return db.executeSql(sql,data)
-        .catch((e) => console.error('Erro ao executar insert professor',e));
-      })
-      .catch((e) => console.log('Erro ao criar login para o professor ', e));
-    })
-    .catch((e) => console.error('Erro ao inserir professor', e));
+      db.sqlBatch([
+        ['INSERT INTO login(email, password, perfil) VALUES(?,?,?)',[professor.email, professor.senha, EnumLogin.PROFESSOR]],
+        ['INSERT INTO professor(login_email, nome, dataAdmissao, foto) VALUES(?,?,?,?)',[professor.email, professor.nome, new Date(Date.parse(professor.dataAdmissao)), professor.foto]]
+      ])
+      .catch((e) => console.error('Erro ao inserir professor', e));
+    });
   }
 
   public update(professor:Professor){
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
+      console.log('Atualizando...' + new Date(Date.parse(professor.dataAdmissao)));
+
       let sql = 'UPDATE professor SET nome = ?, dataAdmissao = ?, foto = ? WHERE login_email = ?';
-      let data = [professor.nome, professor.dataAdmissao, professor.email, professor.foto];
+      let data = [professor.nome,  new Date(Date.parse(professor.dataAdmissao)), professor.foto, professor.email];
       return db.executeSql(sql,data)
       .catch((e) => console.error('Erro ao executar update professor',e));
     })
@@ -40,7 +36,7 @@ export class ProfessorProvider {
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
       let sql = 'SELECT login_email, nome, dataAdmissao, foto FROM professor WHERE  login_email=?';
-      let data = [email];
+      let data = [email];//SELECT strftime('%d-%m-%Y', 'now')
       return db.executeSql(sql, data)
       .then((data: any) => {
         if (data.rows.length > 0){
@@ -48,7 +44,8 @@ export class ProfessorProvider {
           let professor = new Professor();
           professor.email = item.login_email;
           professor.nome = item.nome;
-          professor.dataAdmissao = new Date(item.dataAdmissao + 'T00:00Z');
+          console.log(item.dataAdmissao);
+          professor.dataAdmissao = new Date(item.dataAdmissao).toISOString();
           professor.foto = item.foto;
 
           return professor;
@@ -90,7 +87,8 @@ export class ProfessorProvider {
 
 export class Professor{
   email:string;
+  senha:string;
   nome:string;
-  dataAdmissao:Date;
+  dataAdmissao:string;
   foto:string;
 }

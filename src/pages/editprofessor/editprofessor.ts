@@ -10,6 +10,7 @@ import { Professor, ProfessorProvider } from '../../providers/professor/professo
 export class EditprofessorPage {
 
   professor: Professor;
+  atualizar: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private professorProvider: ProfessorProvider, private toast: ToastController) {
     this.professor = new Professor();
@@ -24,6 +25,7 @@ export class EditprofessorPage {
           this.professor.email = result.email;
           this.professor.dataAdmissao = result.dataAdmissao;
           this.professor.foto = result.foto;
+          this.atualizar = true;
         })
         .catch((e) => console.log('Erro ao selecionar professor ' + e));
     }
@@ -40,7 +42,7 @@ export class EditprofessorPage {
     }
 
     private saveProfessor() {
-      if (this.professor.email) {
+      if (this.atualizar) {
         return this.professorProvider.update(this.professor);
       } else {
         return this.professorProvider.insert(this.professor);

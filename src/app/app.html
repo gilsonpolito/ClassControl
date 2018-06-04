@@ -2,7 +2,7 @@
   <ion-header>
     <ion-toolbar color="dark">
         <ion-item class="item-avatar" color="dark">
-          <img src="assets/icon/favicon.ico" alt="Aqui vai a imagem" />
+          <img src={{usuarioLogado.foto}} *ngIf="usuarioLogado" />
           <span style="color:White" *ngIf="usuarioLogado">{{usuarioLogado.nome}}</span>
         </ion-item>
     </ion-toolbar>

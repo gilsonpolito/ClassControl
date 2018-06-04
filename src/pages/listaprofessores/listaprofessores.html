@@ -12,7 +12,7 @@
     <ion-item-sliding *ngFor="let professor of professores">
       <button ion-item (click)="editProfessor(professor.email)">
         <div style="float:left">
-          <img [src]="professor.foto" alt="Aqui vai a imagem" />
+          <img [src]="professor.foto" *ngIf="professor.foto" />
         </div>
         <div style="float:left; padding-top:25px; padding-left:10px;">
           <h2>{{ professor.nome }}</h2>

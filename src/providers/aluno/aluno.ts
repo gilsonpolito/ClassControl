@@ -57,4 +57,5 @@ export class AlunoProvider {
   email:string;
   nome:string;
   dataNascimento:number;
+  foto:string;
   }
