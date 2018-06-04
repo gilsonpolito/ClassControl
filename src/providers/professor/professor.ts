@@ -48,7 +48,7 @@ export class ProfessorProvider {
           let professor = new Professor();
           professor.email = item.login_email;
           professor.nome = item.nome;
-          professor.dataAdmissao = item.dataAdmissao;
+          professor.dataAdmissao = new Date(item.dataAdmissao + 'T00:00Z');
           professor.foto = item.foto;
 
           return professor;
