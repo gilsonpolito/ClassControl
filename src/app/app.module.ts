@@ -25,6 +25,7 @@ import { DisciplinaProvider } from '../providers/disciplina/disciplina';
 import { ProfessorProvider } from '../providers/professor/professor';
 import { AlunoProvider } from '../providers/aluno/aluno';
 import { TurmaProvider } from '../providers/turma/turma';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { TurmaProvider } from '../providers/turma/turma';
     DisciplinaProvider,
     ProfessorProvider,
     AlunoProvider,
-    TurmaProvider
+    TurmaProvider,
+    Camera
   ]
 })
 export class AppModule {}

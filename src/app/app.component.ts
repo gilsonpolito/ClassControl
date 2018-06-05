@@ -16,6 +16,7 @@ import { Login } from '../providers/login/login';
 import { AlunoProvider, Aluno } from '../providers/aluno/aluno';
 import { ProfessorProvider, Professor } from '../providers/professor/professor';
 import { InstituicaoProvider, Instituicao } from '../providers/instituicao/instituicao';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 export enum EnumLogin{
   ALUNO = 0,
@@ -28,6 +29,8 @@ export enum EnumLogin{
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+
+  image: string = null;
 
   rootPage: any = null;
 
@@ -44,6 +47,7 @@ export class MyApp {
     private alunoProvider: AlunoProvider,
     private professorProvider: ProfessorProvider,
     private instituicaoProvider: InstituicaoProvider,
+    private camera: Camera,
     public events:Events) {
 
       events.subscribe('user:login', (usuario: Login) =>{
@@ -128,4 +132,25 @@ export class MyApp {
     openPage(page) {
       this.nav.setRoot(page.component);
     }
+
+
+    getPicture(){
+      let options: CameraOptions = {
+        destinationType: this.camera.DestinationType.FILE_URI,
+        targetWidth: 100,
+        targetHeight: 100,
+        quality: 100
+      }
+      this.camera.getPicture( options )
+      .then(imageData => {
+        console.log(imageData);
+        //this.image = `data:image/jpeg;base64,${imageData}`;
+        this.usuarioLogado.foto = imageData.replace("file://", "");
+        console.log(this.usuarioLogado.foto);
+      })
+      .catch(error =>{
+        console.error( error );
+      });
+    }
+
   }
