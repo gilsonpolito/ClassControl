@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Aluno, AlunoProvider } from '../../providers/aluno/aluno';
 
-
 @IonicPage()
 @Component({
   selector: 'page-editaluno',
@@ -14,13 +13,9 @@ export class EditalunoPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alunoProvider: AlunoProvider, private toast: ToastController) {
     this.aluno = new Aluno();
-    console.log(this.navParams.data);
     if (this.navParams.data.email) {
-      console.log(this.navParams.data.email);
       this.alunoProvider.get(this.navParams.data.email)
       .then((result: any) => {
-        console.log('Apos select');
-        console.log(result);
         this.aluno.nome = result.nome;
         this.aluno.email = result.email;
         this.aluno.dataNascimento = result.dataNascimento;

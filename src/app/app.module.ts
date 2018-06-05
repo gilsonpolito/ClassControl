@@ -10,8 +10,9 @@ import { ListaturmasPage } from '../pages/listaturmas/listaturmas';
 import { LoginPage } from '../pages/login/login';
 import { ManternotasfaltasPage } from '../pages/manternotasfaltas/manternotasfaltas';
 import { VisualizarnotasfaltasPage } from '../pages/visualizarnotasfaltas/visualizarnotasfaltas';
-import { EditprofessorPage } from '../pages/editprofessor/editprofessor'
-import { EditalunoPage } from '../pages/editaluno/editaluno'
+import { EditprofessorPage } from '../pages/editprofessor/editprofessor';
+import { EditalunoPage } from '../pages/editaluno/editaluno';
+import { EditdisciplinaPage } from '../pages/editdisciplina/editdisciplina';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -36,7 +37,8 @@ import { TurmaProvider } from '../providers/turma/turma';
     ManternotasfaltasPage,
     VisualizarnotasfaltasPage,
     EditprofessorPage,
-    EditalunoPage
+    EditalunoPage,
+    EditdisciplinaPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { TurmaProvider } from '../providers/turma/turma';
     ManternotasfaltasPage,
     VisualizarnotasfaltasPage,
     EditprofessorPage,
-    EditalunoPage
+    EditalunoPage,
+    EditdisciplinaPage
   ],
   providers: [
     StatusBar,

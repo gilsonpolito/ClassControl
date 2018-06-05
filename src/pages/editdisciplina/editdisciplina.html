@@ -1,18 +1,25 @@
-<!--
-  Generated template for the EditdisciplinaPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>editdisciplina</ion-title>
+    <ion-title>Cadastro de Disciplina</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Nome:</ion-label>
+      <ion-input type="text" name="name" [(ngModel)]="disciplina.nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Carga Horária:</ion-label>
+      <ion-input type="text" name="cargaHoraria" [(ngModel)]="disciplina.cargaHoraria"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button block (click)="save()">Salvar</button>
 
 </ion-content>

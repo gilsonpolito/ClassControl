@@ -3,12 +3,21 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>listadisciplinas</ion-title>
+    <ion-title>Lista de Disciplinas</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let disciplina of disciplinas">
+      <button ion-item (click)="editDisciplina(disciplina.id)">
+        <h2>{{ disciplina.nome }}</h2>
+      </button>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="addDisciplina()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 
 </ion-content>
