@@ -11,6 +11,7 @@ import { LoginPage } from '../pages/login/login';
 import { ManternotasfaltasPage } from '../pages/manternotasfaltas/manternotasfaltas';
 import { VisualizarnotasfaltasPage } from '../pages/visualizarnotasfaltas/visualizarnotasfaltas';
 import { EditprofessorPage } from '../pages/editprofessor/editprofessor'
+import { EditalunoPage } from '../pages/editaluno/editaluno'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -34,7 +35,8 @@ import { TurmaProvider } from '../providers/turma/turma';
     LoginPage,
     ManternotasfaltasPage,
     VisualizarnotasfaltasPage,
-    EditprofessorPage
+    EditprofessorPage,
+    EditalunoPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ import { TurmaProvider } from '../providers/turma/turma';
     LoginPage,
     ManternotasfaltasPage,
     VisualizarnotasfaltasPage,
-    EditprofessorPage
+    EditprofessorPage,
+    EditalunoPage
   ],
   providers: [
     StatusBar,

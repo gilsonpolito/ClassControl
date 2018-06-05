@@ -36,7 +36,7 @@ export class ProfessorProvider {
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
       let sql = 'SELECT login_email, nome, dataAdmissao, foto FROM professor WHERE  login_email=?';
-      let data = [email];//SELECT strftime('%d-%m-%Y', 'now')
+      let data = [email];
       return db.executeSql(sql, data)
       .then((data: any) => {
         if (data.rows.length > 0){
@@ -44,7 +44,6 @@ export class ProfessorProvider {
           let professor = new Professor();
           professor.email = item.login_email;
           professor.nome = item.nome;
-          console.log(item.dataAdmissao);
           professor.dataAdmissao = new Date(item.dataAdmissao).toISOString();
           professor.foto = item.foto;
 
@@ -70,7 +69,7 @@ export class ProfessorProvider {
             let professor = new Professor();
             professor.nome = data.rows.item(i).nome;
             professor.email = data.rows.item(i).login_email;
-            professor.dataAdmissao = data.rows.item(i).dataAdmissao;
+            professor.dataAdmissao = new Date(data.rows.item(i).dataAdmissao).toISOString();
             professor.foto = data.rows.item(i).foto;
             professores.push(professor);
           }

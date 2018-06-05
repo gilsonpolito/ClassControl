@@ -3,10 +3,25 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>listaalunos</ion-title>
+    <ion-title>Lista de Alunos</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let aluno of alunos">
+      <button ion-item (click)="editAluno(aluno.email)">
+        <div class="divFoto">
+          <img [src]="aluno.foto" *ngIf="aluno.foto" />
+        </div>
+        <div class="divNome">
+          <h2>{{ aluno.nome }}</h2>
+        </div>
+      </button>
+    </ion-item-sliding>
+  </ion-list>
 
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="addAluno()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Aluno, AlunoProvider } from '../../providers/aluno/aluno';
 
-/**
- * Generated class for the EditalunoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -14,12 +9,44 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'editaluno.html',
 })
 export class EditalunoPage {
+  aluno: Aluno;
+  atualizar: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alunoProvider: AlunoProvider, private toast: ToastController) {
+    this.aluno = new Aluno();
+    console.log(this.navParams.data);
+    if (this.navParams.data.email) {
+      console.log(this.navParams.data.email);
+      this.alunoProvider.get(this.navParams.data.email)
+      .then((result: any) => {
+        console.log('Apos select');
+        console.log(result);
+        this.aluno.nome = result.nome;
+        this.aluno.email = result.email;
+        this.aluno.dataNascimento = result.dataNascimento;
+        this.aluno.foto = result.foto;
+        this.atualizar = true;
+      })
+      .catch((e) => console.log('Erro ao selecionar aluno ' + e));
+    }
+  }
+  save() {
+    this.saveAluno()
+    .then(() => {
+      this.toast.create({ message: 'Aluno salvo!', duration: 3000, position: 'middle' }).present();
+      this.navCtrl.pop();
+    })
+    .catch(() => {
+      this.toast.create({ message: 'Erro ao salvar aluno!', duration: 3000, position: 'middle' }).present();
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditalunoPage');
+  private saveAluno() {
+    if (this.atualizar) {
+      return this.alunoProvider.update(this.aluno);
+    } else {
+      return this.alunoProvider.insert(this.aluno);
+    }
   }
 
 }
