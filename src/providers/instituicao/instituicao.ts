@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { DatabaseProvider } from '../database/database';
+import { EnumLogin } from '../../app/app.component';
 
 @Injectable()
 export class InstituicaoProvider {
@@ -21,7 +22,7 @@ export class InstituicaoProvider {
   public update(instituicao:Instituicao){
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
-      let sql = 'UPDATE instituicao SET nome = ?, foto = ? WHERE email = ?';
+      let sql = 'UPDATE instituicao SET nome = ?, foto = ? WHERE login_email = ?';
       let data = [instituicao.nome,instituicao.foto, instituicao.email];
       return db.executeSql(sql,data)
       .catch((e) => console.error('Erro ao executar update instituicao',e));
@@ -32,7 +33,7 @@ export class InstituicaoProvider {
   public get(email:string){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
-      let sql = 'SELECT login_email, nome, foto FROM instituicao WHERE  login_email=?';
+      let sql = 'SELECT login_email, nome, foto, perfil FROM instituicao i, login l WHERE i.login_email = l.email and l.email=?';
       let data = [email];
       return db.executeSql(sql, data)
       .then((data: any) => {
@@ -42,6 +43,7 @@ export class InstituicaoProvider {
           instituicao.email = item.login_email;
           instituicao.nome = item.nome;
           instituicao.foto = item.foto;
+          instituicao.perfil = <EnumLogin>item.perfil;
 
           return instituicao;
         }
@@ -57,4 +59,5 @@ export class Instituicao{
   email:string;
   nome:string;
   foto:string;
+  perfil:EnumLogin;
 }

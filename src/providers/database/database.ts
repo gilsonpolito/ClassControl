@@ -26,13 +26,13 @@ export class DatabaseProvider {
   private createTables(db: SQLiteObject){
     console.log('createTables');
     db.sqlBatch([
-      ['DROP TABLE IF EXISTS vinculo'],
+      /*['DROP TABLE IF EXISTS vinculo'],
       ['DROP TABLE IF EXISTS turma'],
       ['DROP TABLE IF EXISTS aluno'],
       ['DROP TABLE IF EXISTS professor'],
       ['DROP TABLE IF EXISTS disciplina'],
       ['DROP TABLE IF EXISTS instituicao'],
-      ['DROP TABLE IF EXISTS login'],
+      ['DROP TABLE IF EXISTS login'],*/
       ['CREATE TABLE IF NOT EXISTS login(email TEXT PRIMARY KEY, password TEXT, perfil INTEGER)'],
       ['CREATE TABLE IF NOT EXISTS instituicao(login_email TEXT PRIMARY KEY, nome TEXT, foto TEXT, FOREIGN KEY(login_email) REFERENCES login(email))'],
       ['CREATE TABLE IF NOT EXISTS disciplina(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT NOT NULL, cargaHoraria INTEGER NOT NULL)'],

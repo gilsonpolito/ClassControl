@@ -137,16 +137,25 @@ export class MyApp {
     getPicture(){
       let options: CameraOptions = {
         destinationType: this.camera.DestinationType.FILE_URI,
-        targetWidth: 100,
-        targetHeight: 100,
+        targetWidth: 64,
+        targetHeight: 64,
         quality: 100
       }
       this.camera.getPicture( options )
       .then(imageData => {
-        console.log(imageData);
-        //this.image = `data:image/jpeg;base64,${imageData}`;
         this.usuarioLogado.foto = imageData.replace("file://", "");
-        console.log(this.usuarioLogado.foto);
+        console.log('antes do switch: ' + this.usuarioLogado);
+        switch(this.usuarioLogado.perfil){
+          case EnumLogin.ALUNO:
+          this.alunoProvider.update(this.usuarioLogado);
+          break;
+          case EnumLogin.PROFESSOR:
+          this.professorProvider.update(this.usuarioLogado);
+          break;
+          case EnumLogin.INSTITUICAO:
+          this.instituicaoProvider.update(this.usuarioLogado);
+          break;
+        }
       })
       .catch(error =>{
         console.error( error );
