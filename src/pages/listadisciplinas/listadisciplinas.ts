@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Disciplina, DisciplinaProvider } from '../../providers/disciplina/disciplina';
 import { EditdisciplinaPage } from '../editdisciplina/editdisciplina';
 
@@ -13,7 +13,6 @@ export class ListadisciplinasPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private toast: ToastController,
     private disciplinaProvider: DisciplinaProvider) {
     }
 
@@ -27,8 +26,8 @@ export class ListadisciplinasPage {
       });
     }
 
-    editDisciplina(id: number) {
-      this.navCtrl.push(EditdisciplinaPage, { id: id });
+    editDisciplina(disciplina: Disciplina) {
+      this.navCtrl.push(EditdisciplinaPage, { disciplina: disciplina });
     }
 
     addDisciplina() {

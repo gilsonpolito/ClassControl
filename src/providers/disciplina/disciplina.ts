@@ -29,29 +29,6 @@ export class DisciplinaProvider {
     .catch((e) => console.error('Erro ao atualizar disciplina', e));
   }
 
-  public get(id:number){
-    return this.dbProvider.getDB()
-    .then((db: SQLiteObject) => {
-      let sql = 'SELECT id, nome, cargaHoraria FROM disciplina WHERE  id=?';
-      let data = [id];
-      return db.executeSql(sql, data)
-      .then((data: any) => {
-        if (data.rows.length > 0){
-          let item = data.rows.item(0);
-          let disciplina = new Disciplina();
-          disciplina.id = item.id;
-          disciplina.nome = item.nome;
-          disciplina.cargaHoraria = item.cargaHoraria;
-
-          return disciplina;
-        }
-        return null;
-      })
-      .catch((e) => console.error('Erro ao executar get disciplina', e));
-    })
-    .catch((e) => console.error('Erro ao pesquisar disciplina', e));
-  }
-
   public getAll(){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {

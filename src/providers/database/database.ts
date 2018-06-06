@@ -26,18 +26,18 @@ export class DatabaseProvider {
   private createTables(db: SQLiteObject){
     console.log('createTables');
     db.sqlBatch([
-      /*['DROP TABLE IF EXISTS vinculo'],
+      ['DROP TABLE IF EXISTS vinculo'],
       ['DROP TABLE IF EXISTS turma'],
       ['DROP TABLE IF EXISTS aluno'],
       ['DROP TABLE IF EXISTS professor'],
       ['DROP TABLE IF EXISTS disciplina'],
       ['DROP TABLE IF EXISTS instituicao'],
-      ['DROP TABLE IF EXISTS login'],*/
-      ['CREATE TABLE IF NOT EXISTS login(email TEXT PRIMARY KEY, password TEXT, perfil INTEGER)'],
-      ['CREATE TABLE IF NOT EXISTS instituicao(login_email TEXT PRIMARY KEY, nome TEXT, foto TEXT, FOREIGN KEY(login_email) REFERENCES login(email))'],
+      ['DROP TABLE IF EXISTS login'],
+      ['CREATE TABLE IF NOT EXISTS login(email TEXT PRIMARY KEY, password TEXT, foto TEXT, perfil INTEGER)'],
+      ['CREATE TABLE IF NOT EXISTS instituicao(login_email TEXT PRIMARY KEY, nome TEXT, FOREIGN KEY(login_email) REFERENCES login(email))'],
       ['CREATE TABLE IF NOT EXISTS disciplina(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT NOT NULL, cargaHoraria INTEGER NOT NULL)'],
-      ['CREATE TABLE IF NOT EXISTS professor(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataAdmissao DATE NOT NULL, foto TEXT, FOREIGN KEY(login_email) REFERENCES login(email))'],
-      ['CREATE TABLE IF NOT EXISTS aluno(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataNascimento DATE NOT NULL, foto TEXT, FOREIGN KEY(login_email) REFERENCES login(email))'],
+      ['CREATE TABLE IF NOT EXISTS professor(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataAdmissao DATE NOT NULL, FOREIGN KEY(login_email) REFERENCES login(email))'],
+      ['CREATE TABLE IF NOT EXISTS aluno(login_email TEXT PRIMARY KEY, nome TEXT NOT NULL, dataNascimento DATE NOT NULL, FOREIGN KEY(login_email) REFERENCES login(email))'],
       ['CREATE TABLE IF NOT EXISTS turma(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, disciplina_id INTEGER NOT NULL, professor_login_email TEXT NOT NULL, FOREIGN KEY(disciplina_id) REFERENCES disciplina(id), FOREIGN KEY(professor_login_email)  REFERENCES professor(login_email))'],
       ['CREATE TABLE IF NOT EXISTS vinculo(turma_id INTEGER NOT NULL, aluno_login_email TEXT NOT NULL, PRIMARY KEY(turma_id, aluno_login_email))']
     ])
@@ -50,14 +50,10 @@ export class DatabaseProvider {
     .then((data: any) =>{
       if(data.rows.item(0).qtd == 0){
         db.sqlBatch([
-          ['INSERT INTO login(email, password, perfil) VALUES(?,?,?)', ['ifsp','ifsp',EnumLogin.INSTITUICAO]],
-          ['INSERT INTO instituicao(nome, login_email, foto) VALUES(?,?,?)', ['Instituição teste com bd', 'ifsp', null]],
-          ['INSERT INTO login(email, password, perfil) VALUES(?,?,?)', ['prof','prof',EnumLogin.PROFESSOR]],
-          ['INSERT INTO login(email, password, perfil) VALUES(?,?,?)', ['prof2','prof2',EnumLogin.PROFESSOR]],
-          ['INSERT INTO professor(login_email, nome, dataAdmissao, foto) VALUES(?,?,?,?)', ['prof','nome professor',new Date(), null]],
-          ['INSERT INTO professor(login_email, nome, dataAdmissao, foto) VALUES(?,?,?,?)', ['prof2','nome professor 2',new Date(), 'assets/icon/favicon.ico']]
+          ['INSERT INTO login(email, password, perfil, foto) VALUES(?,?,?,?)', ['ifsp','ifsp',EnumLogin.INSTITUICAO, null]],
+          ['INSERT INTO instituicao(nome, login_email) VALUES(?,?)', ['Instituição teste com bd', 'ifsp']]
         ])
-        .catch(e => console.error('Erro ao incluir Administrador e instituicao', e));
+        .catch(e => console.error('Erro ao incluir Instituicao padrão', e));
       } else{
         console.log('A base já possui informações!!!');
       }

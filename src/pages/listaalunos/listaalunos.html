@@ -10,9 +10,9 @@
 <ion-content padding>
   <ion-list>
     <ion-item-sliding *ngFor="let aluno of alunos">
-      <button ion-item (click)="editAluno(aluno.email)">
+      <button ion-item (click)="editAluno(aluno)">
         <div class="divFoto">
-          <img [src]="aluno.foto" *ngIf="aluno.foto" />
+          <img [src]="aluno.login.foto" *ngIf="aluno.login.foto" />
         </div>
         <div class="divNome">
           <h2>{{ aluno.nome }}</h2>

@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { ListaalunosPage } from '../pages/listaalunos/listaalunos';
 import { ListadisciplinasPage } from '../pages/listadisciplinas/listadisciplinas';
 import { ListaprofessoresPage } from '../pages/listaprofessores/listaprofessores';
@@ -10,7 +9,6 @@ import { ListaturmasPage } from '../pages/listaturmas/listaturmas';
 import { LoginPage } from '../pages/login/login';
 import { ManternotasfaltasPage } from '../pages/manternotasfaltas/manternotasfaltas';
 import { VisualizarnotasfaltasPage } from '../pages/visualizarnotasfaltas/visualizarnotasfaltas';
-
 import { DatabaseProvider } from '../providers/database/database';
 import { Login } from '../providers/login/login';
 import { AlunoProvider, Aluno } from '../providers/aluno/aluno';
@@ -73,14 +71,12 @@ export class MyApp {
           { title: 'Visualizar Notas e Faltas', component: VisualizarnotasfaltasPage }
         ];
         this.alunoProvider.get(perfil.email)
-        .then((result : any) => {
-          if (result instanceof Aluno){
-            if(result.foto == null){
-              result.foto = 'assets/icon/favicon.ico';
-            }
-            this.usuarioLogado = <Aluno>result;
-            this.nav.setRoot(VisualizarnotasfaltasPage);
+        .then((result : Aluno) => {
+          if(result.login.foto == null){
+            result.login.foto = 'assets/icon/favicon.ico';
           }
+          this.usuarioLogado = <Aluno>result;
+          this.nav.setRoot(VisualizarnotasfaltasPage);
         })
         .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
         break;
@@ -89,14 +85,12 @@ export class MyApp {
           { title: 'Manter Notas e Faltas', component: ManternotasfaltasPage }
         ];
         this.professorProvider.get(perfil.email)
-        .then((result : any) => {
-          if (result instanceof Professor){
-            if(result.foto == null){
-              result.foto = 'assets/icon/favicon.ico';
-            }
-            this.usuarioLogado = <Professor>result;
-            this.nav.setRoot(ManternotasfaltasPage);
+        .then((result : Professor) => {
+          if(result.login.foto == null){
+            result.login.foto = 'assets/icon/favicon.ico';
           }
+          this.usuarioLogado = <Professor>result;
+          this.nav.setRoot(ManternotasfaltasPage);
         })
         .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
         break;
@@ -109,14 +103,11 @@ export class MyApp {
         ];
         this.instituicaoProvider.get(perfil.email)
         .then((result : any) => {
-          if (result instanceof Instituicao){
-            if(result.foto == null){
-              result.foto = 'assets/icon/favicon.ico';
-            }
-            this.usuarioLogado = <Instituicao>result;
-
-            this.nav.setRoot(ListaturmasPage);
+          if(result.login.foto == null){
+            result.login.foto = 'assets/icon/favicon.ico';
           }
+          this.usuarioLogado = <Instituicao>result;
+          this.nav.setRoot(ListaturmasPage);
         })
         .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
         break;

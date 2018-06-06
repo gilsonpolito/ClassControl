@@ -15,7 +15,7 @@ export class TurmaProvider {
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
       let sql = 'INSERT INTO turma(disciplina_id, professor_id) VALUES(?,?)';
-      let data = [turma.disciplina.id,turma.professor.email];
+      let data = [turma.disciplina.id,turma.professor.login.email];
       db.transaction(tx => {
         tx.start();
         tx.executeSql(sql,data,()=>{
@@ -26,7 +26,7 @@ export class TurmaProvider {
             sql = 'INSERT INTO vinculo(turma_id, aluno_id) VALUES(?,?)';
 
             for (let i = 0; i < turma.alunos.length; i++) {
-              data = [idGerado,turma.alunos[i].email];
+              data = [idGerado,turma.alunos[i].login.email];
               tx.executeSql(sql,data);
             }
           }, (e) =>{
@@ -44,7 +44,7 @@ export class TurmaProvider {
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
       let sql = 'UPDATE turma SET disciplina_id = ?, professor_id = ? WHERE id = ?';
-      let data = [turma.disciplina.id,turma.professor.email, turma.id];
+      let data = [turma.disciplina.id,turma.professor.login.email, turma.id];
       db.transaction(tx => {
         tx.executeSql(sql,data,()=>{
           sql = 'DELETE FROM vinculo WHERE turma_id = ?';
@@ -52,7 +52,7 @@ export class TurmaProvider {
           tx.executeSql(sql,data);
           sql = 'INSERT INTO vinculo(turma_id, aluno_id) VALUES(?,?)';
           for (let i = 0; i < turma.alunos.length; i++) {
-            data = [turma.id,turma.alunos[i].email];
+            data = [turma.id,turma.alunos[i].login.email];
             tx.executeSql(sql,data);
           }
         },(e)=>{
@@ -89,7 +89,7 @@ return null;
 
 export class Turma{
   id:number;
-  disciplina:Disciplina;
-  professor:Professor;
+  disciplina:Disciplina = new Disciplina();
+  professor:Professor = new Professor();
   alunos:[Aluno];
 }

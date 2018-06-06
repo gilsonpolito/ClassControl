@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Professor, ProfessorProvider } from '../../providers/professor/professor';
 import { EditprofessorPage } from '../editprofessor/editprofessor'
 
@@ -10,11 +10,10 @@ import { EditprofessorPage } from '../editprofessor/editprofessor'
 })
 export class ListaprofessoresPage {
 
-  professores: any[] = [];
+  professores: Professor[] = [];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private toast: ToastController,
     private professorProvider: ProfessorProvider) {
   }
 
@@ -28,8 +27,8 @@ export class ListaprofessoresPage {
       });
   }
 
-  editProfessor(email: string) {
-    this.navCtrl.push(EditprofessorPage, { email: email });
+  editProfessor(professor: Professor) {
+    this.navCtrl.push(EditprofessorPage, { professor: professor });
   }
 
   addProfessor() {

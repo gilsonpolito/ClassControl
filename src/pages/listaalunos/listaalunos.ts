@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Aluno, AlunoProvider } from '../../providers/aluno/aluno';
 import { EditalunoPage } from '../editaluno/editaluno'
 
@@ -9,11 +9,10 @@ import { EditalunoPage } from '../editaluno/editaluno'
   templateUrl: 'listaalunos.html',
 })
 export class ListaalunosPage {
-  alunos: any[] = [];
+  alunos: Aluno[] = [];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private toast: ToastController,
     private alunoProvider: AlunoProvider) {
     }
 
@@ -27,8 +26,8 @@ export class ListaalunosPage {
       });
     }
 
-    editAluno(email: string) {
-      this.navCtrl.push(EditalunoPage, { email: email });
+    editAluno(aluno: Aluno) {
+      this.navCtrl.push(EditalunoPage, { aluno: aluno });
     }
 
     addAluno() {

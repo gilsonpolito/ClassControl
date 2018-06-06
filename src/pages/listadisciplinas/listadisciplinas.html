@@ -10,7 +10,7 @@
 <ion-content padding>
   <ion-list>
     <ion-item-sliding *ngFor="let disciplina of disciplinas">
-      <button ion-item (click)="editDisciplina(disciplina.id)">
+      <button ion-item (click)="editDisciplina(disciplina)">
         <h2>{{ disciplina.nome }}</h2>
       </button>
     </ion-item-sliding>

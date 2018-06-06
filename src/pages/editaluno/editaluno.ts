@@ -8,21 +8,13 @@ import { Aluno, AlunoProvider } from '../../providers/aluno/aluno';
   templateUrl: 'editaluno.html',
 })
 export class EditalunoPage {
-  aluno: Aluno;
+  aluno: Aluno = new Aluno();
   atualizar: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alunoProvider: AlunoProvider, private toast: ToastController) {
-    this.aluno = new Aluno();
-    if (this.navParams.data.email) {
-      this.alunoProvider.get(this.navParams.data.email)
-      .then((result: any) => {
-        this.aluno.nome = result.nome;
-        this.aluno.email = result.email;
-        this.aluno.dataNascimento = result.dataNascimento;
-        this.aluno.foto = result.foto;
-        this.atualizar = true;
-      })
-      .catch((e) => console.log('Erro ao selecionar aluno ' + e));
+    if (this.navParams.data.aluno) {
+      this.aluno = this.navParams.data.aluno;
+      this.atualizar = true;
     }
   }
   save() {
@@ -43,5 +35,4 @@ export class EditalunoPage {
       return this.alunoProvider.insert(this.aluno);
     }
   }
-
 }
