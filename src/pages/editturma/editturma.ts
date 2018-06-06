@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the EditturmaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Turma, TurmaProvider } from '../../providers/turma/turma';
+import { Disciplina, DisciplinaProvider } from '../../providers/disciplina/disciplina';
+import { Professor, ProfessorProvider } from '../../providers/professor/professor';
 
 @IonicPage()
 @Component({
@@ -15,11 +11,33 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EditturmaPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  disciplinas: Disciplina[] = [];
+  professores: Professor[] = [];
+  turma: Turma = new Turma();
+  atualizar: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  private disciplinaProvider: DisciplinaProvider,
+  private professorProvider: ProfessorProvider,
+  private toast: ToastController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EditturmaPage');
+    this.disciplinaProvider.getAll()
+    .then((result: Disciplina[]) =>{
+      this.disciplinas = result;
+    })
+    .catch(() =>{
+      this.toast.create({message: 'Erro ao carregar disciplinas.',duration:3000, position:'middle'}).present();
+    });
+
+    this.professorProvider.getAll()
+    .then((result: Professor[]) => {
+      this.professores = result;
+    })
+    .catch(() => {
+      this.toast.create({message: 'Erro ao carregar professores.',duration:3000, position:'middle'}).present();
+    })
   }
 
 }

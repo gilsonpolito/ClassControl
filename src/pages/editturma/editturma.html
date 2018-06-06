@@ -1,18 +1,29 @@
-<!--
-  Generated template for the EditturmaPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>editturma</ion-title>
+    <ion-title>Cadastro de Turma</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Disciplina:</ion-label>
+      <ion-select [(ngModel)]="turma.disciplina">
+        <ion-option *ngFor="let disciplina of disciplinas" [value]="disciplina">{{disciplina.nome}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Professor:</ion-label>
+      <ion-select [(ngModel)]="turma.professor">
+        <ion-option *ngFor="let professor of professores" [value]="professor">{{professor.nome}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button block (click)="save()">Vincular Alunos</button>
 
 </ion-content>

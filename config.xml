@@ -3,7 +3,7 @@
     <name>ClassControl</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://10.40.1.20:8100" />
+    <content original-src="index.html" src="http://192.168.0.130:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
