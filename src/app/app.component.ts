@@ -75,7 +75,7 @@ export class MyApp {
           if(result.login.foto == null){
             result.login.foto = 'assets/icon/favicon.ico';
           }
-          this.usuarioLogado = <Aluno>result;
+          this.usuarioLogado = result;
           this.nav.setRoot(VisualizarnotasfaltasPage);
         })
         .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
@@ -89,7 +89,7 @@ export class MyApp {
           if(result.login.foto == null){
             result.login.foto = 'assets/icon/favicon.ico';
           }
-          this.usuarioLogado = <Professor>result;
+          this.usuarioLogado = result;
           this.nav.setRoot(ManternotasfaltasPage);
         })
         .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
@@ -102,11 +102,11 @@ export class MyApp {
           {title: 'Listar Turmas', component: ListaturmasPage }
         ];
         this.instituicaoProvider.get(perfil.email)
-        .then((result : any) => {
+        .then((result : Instituicao) => {
           if(result.login.foto == null){
             result.login.foto = 'assets/icon/favicon.ico';
           }
-          this.usuarioLogado = <Instituicao>result;
+          this.usuarioLogado = result;
           this.nav.setRoot(ListaturmasPage);
         })
         .catch((e) => console.log('Falha ao recuperar informações da instituição: ' + e));
