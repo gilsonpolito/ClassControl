@@ -63,28 +63,32 @@ export class TurmaProvider {
     .catch((e) => console.error('Erro ao atualizar turma', e));
   }
 
-  /*public get(id:number){
-  return this.dbProvider.getDB()
-  .then((db: SQLiteObject) => {
-  let sql = 'SELECT id, nome, dataNascimento FROM turma WHERE  id=?';
-  let data = [id];
-  return db.executeSql(sql, data)
-  .then((data: any) => {
-  if (data.rows.length > 0){
-  let item = data.rows.item(0);
-  let turma = new Turma();
-  turma.id = item.id;
-  turma.nome = item.nome;
-  turma.dataNascimento = item.dataNascimento;
-
-  return turma;
-}
-return null;
-})
-.catch((e) => console.error('Erro ao executar get turma', e));
-})
-.catch((e) => console.error('Erro ao pesquisar turma', e));
-}*/
+  public getAll(){
+    return this.dbProvider.getDB()
+    .then((db: SQLiteObject) => {
+      let sql = 'SELECT d.nome nomeDisciplina, p.nome nomeProfessor, t.id FROM disciplina d, professor p, turma t '
+      + 'WHERE t.disciplina_id = d.id and t.professor_login_email = p.login_email';
+      return db.executeSql(sql, [])
+      .then((data: any) => {
+        if (data.rows.length > 0){
+          let turmas : any[] = [];
+          for (var i = 0; i < data.rows.length; i++) {
+            let turma = new Turma();
+            let item = data.rows.item(i);
+            turma.disciplina.nome = item.nomeDisciplina;
+            turma.professor.nome = item.nomeProfessor;
+            turma.id = item.id;
+            turmas.push(turma);
+          }
+          return turmas;
+        } else {
+          return [];
+        }
+      })
+      .catch((e) => console.error('Erro ao executar get turma', e));
+    })
+    .catch((e) => console.error('Erro ao pesquisar turma', e));
+  }
 }
 
 export class Turma{

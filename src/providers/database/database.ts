@@ -50,8 +50,16 @@ export class DatabaseProvider {
     .then((data: any) =>{
       if(data.rows.item(0).qtd == 0){
         db.sqlBatch([
-          ['INSERT INTO login(email, password, perfil, foto) VALUES(?,?,?,?)', ['ifsp','ifsp',EnumLogin.INSTITUICAO, null]],
-          ['INSERT INTO instituicao(nome, login_email) VALUES(?,?)', ['Instituição teste com bd', 'ifsp']]
+          ['INSERT INTO login(email, password, perfil, foto) VALUES(?,?,?,?)', ['ifsp','ifsp',EnumLogin.INSTITUICAO, null]]
+          ,['INSERT INTO instituicao(nome, login_email) VALUES(?,?)', ['Instituição teste com bd', 'ifsp']]
+
+          ,['INSERT INTO login(email, password, perfil, foto) VALUES(?,?,?,?)', ['prof','prof',EnumLogin.PROFESSOR, null]]
+          ,['INSERT INTO professor(login_email, nome, dataAdmissao) VALUES(?,?,?)',['prof','Gilson', new Date()]]
+          ,['INSERT INTO login(email, password, perfil, foto) VALUES(?,?,?,?)', ['alu','alu',EnumLogin.ALUNO, null]]
+          ,['INSERT INTO aluno(login_email,nome, dataNascimento) VALUES(?,?,?)',['alu','Aluno teste', new Date()]]
+          ,['INSERT INTO disciplina(nome, cargaHoraria) VALUES(?,?)', ['Matemática',20]]
+          ,['INSERT INTO turma(disciplina_id, professor_login_email) VALUES(?,?)', [1,'prof']]
+          ,['INSERT INTO vinculo(turma_id, aluno_login_email) VALUES(?,?)',[1,'alu']]
         ])
         .catch(e => console.error('Erro ao incluir Instituicao padrão', e));
       } else{

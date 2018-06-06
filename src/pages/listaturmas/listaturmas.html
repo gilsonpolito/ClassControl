@@ -8,5 +8,18 @@
 </ion-header>
 
 <ion-content padding>
-  
+  <ion-list>
+    <ion-item-sliding *ngFor="let turma of turmas">
+      <button ion-item (click)="editTurma(turma)">
+        <div class="divNome">
+          <h2>{{ turma.disciplina.nome }} - {{ turma.professor.nome }}</h2>
+        </div>
+      </button>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="addTurma()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
 </ion-content>

@@ -13,6 +13,7 @@ import { VisualizarnotasfaltasPage } from '../pages/visualizarnotasfaltas/visual
 import { EditprofessorPage } from '../pages/editprofessor/editprofessor';
 import { EditalunoPage } from '../pages/editaluno/editaluno';
 import { EditdisciplinaPage } from '../pages/editdisciplina/editdisciplina';
+import { EditturmaPage } from '../pages/editturma/editturma';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,7 +40,8 @@ import { Camera } from '@ionic-native/camera';
     VisualizarnotasfaltasPage,
     EditprofessorPage,
     EditalunoPage,
-    EditdisciplinaPage
+    EditdisciplinaPage,
+    EditturmaPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { Camera } from '@ionic-native/camera';
     VisualizarnotasfaltasPage,
     EditprofessorPage,
     EditalunoPage,
-    EditdisciplinaPage
+    EditdisciplinaPage,
+    EditturmaPage
   ],
   providers: [
     StatusBar,
