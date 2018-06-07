@@ -6,24 +6,27 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-list>
     <ion-item>
       <ion-label stacked>Disciplina:</ion-label>
-      <ion-select [(ngModel)]="turma.disciplina">
-        <ion-option *ngFor="let disciplina of disciplinas" [value]="disciplina">{{disciplina.nome}}</ion-option>
+      <ion-select [(ngModel)]="turma.disciplina.id">
+        <ion-option *ngFor="let disc of disciplinas" value="{{disc.id}}">
+          {{disc.nome}}
+        </ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Professor:</ion-label>
-      <ion-select [(ngModel)]="turma.professor">
-        <ion-option *ngFor="let professor of professores" [value]="professor">{{professor.nome}}</ion-option>
+      <ion-select [(ngModel)]="turma.professor.login.email">
+        <ion-option *ngFor="let professor of professores" value="{{professor.login.email}}">
+          {{professor.nome}}
+        </ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
 
-  <button ion-button block (click)="save()">Vincular Alunos</button>
+  <button ion-button block (click)="vincularAlunos()">Vincular Alunos</button>
 
 </ion-content>

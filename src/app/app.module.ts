@@ -14,6 +14,7 @@ import { EditprofessorPage } from '../pages/editprofessor/editprofessor';
 import { EditalunoPage } from '../pages/editaluno/editaluno';
 import { EditdisciplinaPage } from '../pages/editdisciplina/editdisciplina';
 import { EditturmaPage } from '../pages/editturma/editturma';
+import { VincularalunosPage } from '../pages/vincularalunos/vincularalunos';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,7 +42,8 @@ import { Camera } from '@ionic-native/camera';
     EditprofessorPage,
     EditalunoPage,
     EditdisciplinaPage,
-    EditturmaPage
+    EditturmaPage,
+    VincularalunosPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { Camera } from '@ionic-native/camera';
     EditprofessorPage,
     EditalunoPage,
     EditdisciplinaPage,
-    EditturmaPage
+    EditturmaPage,
+    VincularalunosPage
   ],
   providers: [
     StatusBar,

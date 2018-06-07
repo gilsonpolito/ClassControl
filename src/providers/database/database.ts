@@ -58,6 +58,7 @@ export class DatabaseProvider {
           ,['INSERT INTO login(email, password, perfil, foto) VALUES(?,?,?,?)', ['alu','alu',EnumLogin.ALUNO, null]]
           ,['INSERT INTO aluno(login_email,nome, dataNascimento) VALUES(?,?,?)',['alu','Aluno teste', new Date()]]
           ,['INSERT INTO disciplina(nome, cargaHoraria) VALUES(?,?)', ['Matemática',20]]
+          ,['INSERT INTO disciplina(nome, cargaHoraria) VALUES(?,?)', ['Portugues',10]]
           ,['INSERT INTO turma(disciplina_id, professor_login_email) VALUES(?,?)', [1,'prof']]
           ,['INSERT INTO vinculo(turma_id, aluno_login_email) VALUES(?,?)',[1,'alu']]
         ])

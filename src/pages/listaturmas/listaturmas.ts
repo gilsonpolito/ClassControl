@@ -21,7 +21,7 @@ export class ListaturmasPage {
     }
     getAll() {
       this.turmaProvider.getAll()
-      .then((result: any[]) => {
+      .then((result: Turma[]) => {
         this.turmas = result;
       });
     }

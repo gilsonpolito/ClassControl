@@ -66,8 +66,9 @@ export class TurmaProvider {
   public getAll(){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
-      let sql = 'SELECT d.nome nomeDisciplina, p.nome nomeProfessor, t.id FROM disciplina d, professor p, turma t '
-      + 'WHERE t.disciplina_id = d.id and t.professor_login_email = p.login_email';
+      let sql = 'SELECT d.id idDisc, d.nome nomeDisciplina, d.cargaHoraria, p.nome nomeProfessor, p.login_email, t.id ' +
+                'FROM disciplina d, professor p, turma t ' +
+                'WHERE t.disciplina_id = d.id and t.professor_login_email = p.login_email';
       return db.executeSql(sql, [])
       .then((data: any) => {
         if (data.rows.length > 0){
@@ -75,8 +76,11 @@ export class TurmaProvider {
           for (var i = 0; i < data.rows.length; i++) {
             let turma = new Turma();
             let item = data.rows.item(i);
+            turma.disciplina.id = item.idDisc;
             turma.disciplina.nome = item.nomeDisciplina;
+            turma.disciplina.cargaHoraria = item.cargaHoraria;
             turma.professor.nome = item.nomeProfessor;
+            turma.professor.login.email = item.login_email;
             turma.id = item.id;
             turmas.push(turma);
           }
