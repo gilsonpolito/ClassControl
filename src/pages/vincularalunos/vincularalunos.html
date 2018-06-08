@@ -1,11 +1,19 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Vincular Alunos</ion-title>
+    <ion-title>Vincular Alunos <button color="dark" (click)="salvar()">Salvar</button></ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <ion-grid>
+    <ion-row *ngFor="let obj of alunos">
+      <ion-col width-90>
+        <img [src]="obj.aluno.login.foto" *ngIf="obj.aluno.login.foto" />
+        <h2>{{ obj.aluno.nome }}</h2>
+      </ion-col>
+      <ion-col text-right>
+        <ion-checkbox [(ngModel)]="obj.checked" [checked]="obj.checked"></ion-checkbox>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

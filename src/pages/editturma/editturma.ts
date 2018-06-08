@@ -58,7 +58,6 @@ export class EditturmaPage {
             break;
           }
       }
-      this.toast.create({message: this.turma.disciplina.id + " - " + this.turma.disciplina.nome,duration:3000, position:'middle'}).present();
       this.navCtrl.push(VincularalunosPage, { turma: this.turma });
     }
   }

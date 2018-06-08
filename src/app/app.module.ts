@@ -28,6 +28,7 @@ import { ProfessorProvider } from '../providers/professor/professor';
 import { AlunoProvider } from '../providers/aluno/aluno';
 import { TurmaProvider } from '../providers/turma/turma';
 import { Camera } from '@ionic-native/camera';
+import { VinculoProvider } from '../providers/vinculo/vinculo';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { Camera } from '@ionic-native/camera';
     ProfessorProvider,
     AlunoProvider,
     TurmaProvider,
-    Camera
+    Camera,
+    VinculoProvider
   ]
 })
 export class AppModule {}

@@ -43,32 +43,28 @@ export class TurmaProvider {
   public update(turma:Turma){
     return this.dbProvider.getDB()
     .then((db:SQLiteObject) =>{
-      let sql = 'UPDATE turma SET disciplina_id = ?, professor_id = ? WHERE id = ?';
-      let data = [turma.disciplina.id,turma.professor.login.email, turma.id];
-      db.transaction(tx => {
-        tx.executeSql(sql,data,()=>{
-          sql = 'DELETE FROM vinculo WHERE turma_id = ?';
-          data = [turma.id];
-          tx.executeSql(sql,data);
-          sql = 'INSERT INTO vinculo(turma_id, aluno_id) VALUES(?,?)';
-          for (let i = 0; i < turma.alunos.length; i++) {
-            data = [turma.id,turma.alunos[i].login.email];
-            tx.executeSql(sql,data);
-          }
-        },(e)=>{
-          console.error('Erro ao executar atualização dos vinculos',e)
-        });
-      });
-    })
-    .catch((e) => console.error('Erro ao atualizar turma', e));
+
+      let comandos: any[] = [];
+
+      comandos.push(['UPDATE turma SET disciplina_id = ?, professor_login_email = ? WHERE id = ?',[turma.disciplina.id,turma.professor.login.email, turma.id]]);
+      comandos.push(['DELETE FROM vinculo WHERE turma_id = ?',[turma.id]]);
+      for (let i = 0; i < turma.alunos.length; i++) {
+        comandos.push(['INSERT INTO vinculo(turma_id, aluno_login_email) VALUES(?,?)',[turma.id, turma.alunos[i].login.email]]);
+      }
+
+      db.sqlBatch(
+        comandos
+      )
+      .catch((e) => console.error('Erro ao atualizar turma', e));
+    });
   }
 
   public getAll(){
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
       let sql = 'SELECT d.id idDisc, d.nome nomeDisciplina, d.cargaHoraria, p.nome nomeProfessor, p.login_email, t.id ' +
-                'FROM disciplina d, professor p, turma t ' +
-                'WHERE t.disciplina_id = d.id and t.professor_login_email = p.login_email';
+      'FROM disciplina d, professor p, turma t ' +
+      'WHERE t.disciplina_id = d.id and t.professor_login_email = p.login_email';
       return db.executeSql(sql, [])
       .then((data: any) => {
         if (data.rows.length > 0){
