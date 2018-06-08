@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { Turma, TurmaProvider } from '../../providers/turma/turma';
 import { Aluno, AlunoProvider } from '../../providers/aluno/aluno';
 import { VinculoProvider } from '../../providers/vinculo/vinculo';
-import { ListaturmasPage } from '../listaturmas/listaturmas'
+
 @IonicPage()
 @Component({
   selector: 'page-vincularalunos',
@@ -17,11 +17,10 @@ export class VincularalunosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toast:ToastController,
     private alunoProvider:AlunoProvider,
-    private vinculoProvider:VinculoProvider,
+    vinculoProvider:VinculoProvider,
     private turmaProvider:TurmaProvider) {
       if (this.navParams.data.turma) {
         this.turma = this.navParams.data.turma;
-        //busco os Alunos
         vinculoProvider.get(this.turma.id).then((result:[Aluno]) => {
         this.turma.alunos = result;
       }).catch(() =>{
@@ -76,6 +75,5 @@ export class VincularalunosPage {
     .catch((e) => {
       this.toast.create({message: 'Erro ao salvar turma ' + e ,duration:3000, position:'middle'}).present();
     })
-
   }
 }

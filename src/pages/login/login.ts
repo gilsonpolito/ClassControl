@@ -17,9 +17,13 @@ export class LoginPage {
   public autenticar():void{
     this.loginProvider.get(this.login)
     .then((result : Login) => {
-      this.login = <Login>result;
-      this.events.publish('user:login', this.login);
+      if(result != null){
+        this.login = <Login>result;
+        this.events.publish('user:login', this.login);
+      } else{
+        this.toast.create({message: 'Usuário ou senha inválidos!', duration: 3000, position: 'middle' }).present();
+      }
     })
-    .catch( () => this.toast.create({message: 'Usuário ou senha inválidos!', duration: 3000, position: 'middle' }).present());
+    .catch( () => this.toast.create({message: 'Falha ao executar autenticação!', duration: 3000, position: 'middle' }).present());
   }
 }

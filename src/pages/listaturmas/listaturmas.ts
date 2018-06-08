@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Turma, TurmaProvider } from '../../providers/turma/turma';
 import { EditturmaPage } from '../editturma/editturma'
 
@@ -13,7 +13,8 @@ export class ListaturmasPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private turmaProvider: TurmaProvider) {
+    private turmaProvider: TurmaProvider,
+    private toast: ToastController) {
     }
 
     ionViewDidEnter() {
@@ -31,6 +32,7 @@ export class ListaturmasPage {
     }
 
     addTurma() {
-      this.navCtrl.push(EditturmaPage);
+      //this.navCtrl.push(EditturmaPage);
+      this.toast.create({message: 'Inserção de turma não implementada',duration:3000, position:'middle'}).present();
     }
   }
